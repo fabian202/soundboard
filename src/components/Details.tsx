@@ -33,8 +33,10 @@ const Details: React.FC = () => {
 
   const loadSounds = (sound: Sound) => {
     const { id, file } = sound
-    sounds[id] = new Audio(file.default)
-
+    const audio = new Audio(file.default)
+    audio.preload = 'auto' // Preload the audio
+    sounds[id] = audio
+  
     // Map the key to the sound ID
     keyMap[id.toString()] = id
   }
@@ -44,12 +46,11 @@ const Details: React.FC = () => {
   // })
 
   const handleClick = (audio: HTMLAudioElement) => {
-    // console.log('searching', id)
-    // console.log(fileArray)
     // const audio = fileArray.find((f) => f.id === id)?.sound //sounds[id]
     if (audio) {
       audio.currentTime = 0 // Reset the sound to the beginning
-      audio.play()
+      audio.play();
+      console.log('playyy')
     }
   }
 
@@ -66,14 +67,11 @@ const Details: React.FC = () => {
 
   const handleKeyPress = (event: KeyboardEvent) => {
     // Check if the pressed key is mapped to a sound ID
-    console.log('key press', event.key, keyMap)
-    console.log(fileArray)
     if (!isNaN(+event.key)) {
       // const parsedValue = parseFloat(event.key);
       const audio = fileArray.find((f) => f.id === +event.key)?.sound
       audio && handleClick(audio)
     } else {
-      console.log('The value is not a number')
       handleStopAllSounds()
     }
 
@@ -98,8 +96,6 @@ const Details: React.FC = () => {
           return fs.statSync(filePath).isFile()
         })
 
-        console.log('filteredFiles', filteredFiles)
-
         // Update the state with the file array
         setFileArray(
           filteredFiles.map((s, ix) => {
@@ -117,7 +113,6 @@ const Details: React.FC = () => {
             return sound
           })
         )
-        console.log('sounds', sounds)
       }
     )
   }

@@ -14,7 +14,6 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import connectDatabase from './database'
 
 class AppUpdater {
   constructor() {
@@ -85,14 +84,6 @@ const createWindow = async () => {
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
-
-  // Establish the database connection
-  try {
-    await connectDatabase();
-    console.log('Database connection established.');
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
-  }
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
