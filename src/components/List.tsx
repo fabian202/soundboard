@@ -15,10 +15,10 @@ const List = () => {
 
     function getFilesInDirectory() {
       try {
-        // console.log(fs)
-        const files = fs.readdirSync(directoryPath)
-        // return files;
-        // console.log('files', files)
+        const files = fs
+          .readdirSync(directoryPath)
+          .filter((file: string) => file !== '.DS_Store')
+          
         setFiles(files)
       } catch (error) {
         console.error('Error reading directory:', error)
@@ -40,7 +40,7 @@ const List = () => {
 
   return (
     <Container>
-      <Row className='mt-3'>
+      <Row className="mt-3">
         <Col>
           <p className="title">Proyecto UNO</p>
         </Col>

@@ -41,16 +41,10 @@ const Details: React.FC = () => {
     keyMap[id.toString()] = id
   }
 
-  // soundArray.forEach((sound) => {
-  //   loadSounds(sound)
-  // })
-
   const handleClick = (audio: HTMLAudioElement) => {
-    // const audio = fileArray.find((f) => f.id === id)?.sound //sounds[id]
     if (audio) {
       audio.currentTime = 0 // Reset the sound to the beginning
-      audio.play();
-      console.log('playyy')
+      audio.play()
     }
   }
 
@@ -59,10 +53,6 @@ const Details: React.FC = () => {
       sound.pause()
       sound.currentTime = 0 // Reset the sound to the beginning
     })
-    // Object.values(sounds).forEach((audio) => {
-    //   audio.pause()
-    //   audio.currentTime = 0 // Reset the sound to the beginning
-    // })
   }
 
   const handleKeyPress = (event: KeyboardEvent) => {
@@ -74,11 +64,6 @@ const Details: React.FC = () => {
     } else {
       handleStopAllSounds()
     }
-
-    // if (event.key in keyMap) {
-    //   const soundId = keyMap[event.key]
-    //   handleClick(soundId)
-    // }
   }
 
   const readDirectory = (directoryPath: string) => {
@@ -121,13 +106,6 @@ const Details: React.FC = () => {
     // Specify the directory path
     const directoryPath = `./assets/songs/${songId}`
     readDirectory(directoryPath)
-    // // Attach the keydown event listener to the document
-    // document.addEventListener('keydown', handleKeyPress)
-
-    // // Clean up the event listener on component unmount
-    // return () => {
-    //   document.removeEventListener('keydown', handleKeyPress)
-    // }
   }, [])
 
   useEffect(() => {
@@ -141,14 +119,6 @@ const Details: React.FC = () => {
       }
     }
   }, [fileArray])
-
-  // useEffect(() => {
-  //   if (fileArray.length) {
-  //     fileArray.forEach((sound) => {
-  //       loadSounds(sound)
-  //     })
-  //   }
-  // }, fileArray)
 
   const extractWordFromString = (value: string, separator = '_') => {
     const regex = new RegExp(`${separator}(\\w+)\\.`)
